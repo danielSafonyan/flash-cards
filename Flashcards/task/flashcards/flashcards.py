@@ -5,9 +5,9 @@ import random
 
 class FlashCards:
     __all_cards = dict()
-    __logs = []
+    __logs = list()
     __num_errors = 0
-    __error_words = []
+    __error_words = list()
 
     @classmethod
     def __get_term(cls):
@@ -55,11 +55,23 @@ class FlashCards:
             cls.__hardest_card()
         if action == 'reset stats':
             cls.__reset_stats()
+        if action == 'state':
+            cls.__state()
+
+    @classmethod
+    def __state(cls):
+        print(cls.__all_cards)
+        print(cls.__num_errors)
+        print(cls.__error_words)
+        # __all_cards = dict()
+        # __logs = list()
+        # __num_errors = 0
+        # __error_words = list()
 
     @classmethod
     def __reset_stats(cls):
-        __num_errors = 0
-        __error_words = []
+        cls.__num_errors = 0
+        cls.__error_words = []
         message = 'Card statistics have been reset.'
         print(message)
         cls.__logs.append(message)
@@ -79,6 +91,7 @@ class FlashCards:
         if cls.__error_words:
             if len(cls.__error_words) == 1:
                 message = f'The hardest card is "{cls.__error_words[0]}". You have {cls.__num_errors} errors answering it.'
+                print(message)
             else:
                 message = 'The hardest cards are '
                 for idx, word in enumerate(cls.__error_words):
